@@ -1,12 +1,13 @@
 import TrashIcon from "../icons/TrashIcon";
-import { Column } from "../types";
+import type { Column, Id } from "../types";
 
 interface Props {
     column: Column;
+    deleteColumn: (id: Id) => void;
 }
 
 function ColumnContainer(props: Props) {
-    const { column } = props;
+    const { column, deleteColumn } = props;
     return (
         <div className="bg-gray-800 w-[350px] h-[500px] 
             max-h-[500px] rounded-md flex flex-col">
@@ -21,7 +22,9 @@ function ColumnContainer(props: Props) {
                     </div>
                     {column.title}
                 </div>
-                <button className="">
+                <button onClick={() => deleteColumn(column.id)}
+                    className="stroke-gray-500 
+                    hover:stroke-white hover:bg-gray-800 rounded px-1 py-2">
                     <TrashIcon />
                 </button>
             </div>
