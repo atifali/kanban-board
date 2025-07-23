@@ -23,8 +23,8 @@ function KanbanBoard() {
                     ))}
                 </div>
                 <button className="h-[60px] w-[350px] min-w-[350px] 
-                    cursor-pointer rounded-lg bg-mainBackgroundColor 
-                    border-2 border-columnBackgroundColor p-4 
+                    cursor-pointer rounded-lg bg-gray-900 
+                    border-2 border-gray-800 p-4 
                     ring-rose-500 hover:ring-2 flex gap-2"
                     onClick={createNewColumn}>
                     <PlusIcon />
