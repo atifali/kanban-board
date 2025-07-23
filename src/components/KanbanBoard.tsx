@@ -2,6 +2,7 @@ import { useState } from "react"
 import PlusIcon from "../icons/PlusIcon"
 import type { Column, Id } from "../types";
 import ColumnContainer from "./ColumnContainer";
+import { DndContext } from "@dnd-kit/core";
 
 function KanbanBoard() {
     const [columns, setColumns] = useState<Column[]>([]);
@@ -24,22 +25,25 @@ function KanbanBoard() {
     return (
         <div className="m-auto flex min-h-screen w-full items-center
             overflow-x-auto overflow-y-hidden px-[40px]">
-            <div className="m-auto flex gap-4">
-                <div className="flex gap-4">
-                    {columns.map((column) => (
-                        <ColumnContainer key={column.id} column={column} deleteColumn=
-                            {deleteColumn} />
-                    ))}
-                </div>
-                <button className="h-[60px] w-[350px] min-w-[350px] 
+            <DndContext>
+                <div className="m-auto flex gap-4">
+                    <div className="flex gap-4">
+                        {columns.map((column) => (
+                            <ColumnContainer key={column.id}
+                                column={column}
+                                deleteColumn={deleteColumn} />
+                        ))}
+                    </div>
+                    <button className="h-[60px] w-[350px] min-w-[350px] 
                     cursor-pointer rounded-lg bg-gray-900 
                     border-2 border-gray-800 p-4 
                     ring-rose-500 hover:ring-2 flex gap-2"
-                    onClick={createNewColumn}>
-                    <PlusIcon />
-                    Add Column
-                </button>
-            </div>
+                        onClick={createNewColumn}>
+                        <PlusIcon />
+                        Add Column
+                    </button>
+                </div>
+            </DndContext>
         </div>
     )
 }
