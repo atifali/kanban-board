@@ -2,7 +2,7 @@ import { useMemo, useState } from "react"
 import PlusIcon from "../icons/PlusIcon"
 import type { Column, Id } from "../types";
 import ColumnContainer from "./ColumnContainer";
-import { DndContext, DragOverlay, type DragEndEvent, type DragStartEvent } from "@dnd-kit/core";
+import { DndContext, DragOverlay, PointerSensor, useSensors, useSensor, type DragEndEvent, type DragStartEvent } from "@dnd-kit/core";
 import { arrayMove, SortableContext } from "@dnd-kit/sortable";
 import { createPortal } from "react-dom";
 
@@ -12,6 +12,13 @@ function KanbanBoard() {
         () => columns.map(column => column.id),
         [columns]);
     const [activeColumn, setActiveColumn] = useState<Column | null>(null);
+    const sensors = useSensors(
+        useSensor(PointerSensor, {
+            activationConstraint: {
+                distance: 300,
+            }
+        })
+    );
 
     function createNewColumn() {
         const columnToAdd: Column = {
@@ -54,7 +61,11 @@ function KanbanBoard() {
     return (
         <div className="m-auto flex min-h-screen w-full items-center
             overflow-x-auto overflow-y-hidden px-[40px]">
-            <DndContext onDragStart={onDragStart} onDragEnd={onDragEnd}>
+            <DndContext
+                sensors={sensors}
+                onDragStart={onDragStart}
+                onDragEnd={onDragEnd}
+            >
                 <div className="m-auto flex gap-4">
                     <div className="flex gap-4">
                         <SortableContext items={columnsId}>
