@@ -2,6 +2,7 @@ import { useSortable } from "@dnd-kit/sortable";
 import TrashIcon from "../icons/TrashIcon";
 import type { Column, Id } from "../types";
 import { CSS } from "@dnd-kit/utilities"
+import { useState } from "react";
 
 interface Props {
     column: Column;
@@ -10,6 +11,8 @@ interface Props {
 
 function ColumnContainer(props: Props) {
     const { column, deleteColumn } = props;
+    const [editMode, setEditMode] = useState(false);
+
     const { setNodeRef, attributes, listeners,
         transform, transition, isDragging } = useSortable({
             id: column.id,
@@ -36,7 +39,10 @@ function ColumnContainer(props: Props) {
     return (
         <div ref={setNodeRef} style={style} className="bg-gray-800 
             w-[350px] h-[500px] max-h-[500px] rounded-md flex flex-col">
-            <div {...attributes} {...listeners} className="bg-gray-950 
+            <div {...attributes} {...listeners}
+                onClick={
+                    () => { setEditMode(true) }
+                } className="bg-gray-950 
                 text-md h-[60px] cursor-grab rounded-md rounded-b-none 
                 p-3 font-bold border-gray-800 border-4 flex items-center 
                 justify-between">
@@ -45,7 +51,11 @@ function ColumnContainer(props: Props) {
                     bg-gray-800 px-2 py-1 text-sm rounded-full">
                         0
                     </div>
-                    {column.title}
+                    {!editMode && column.title}
+                    {editMode && <input autoFocus
+                        onBlur={
+                            () => { setEditMode(false) }
+                        } />}
                 </div>
                 <button onClick={() => deleteColumn(column.id)}
                     className="stroke-gray-500 
@@ -60,7 +70,7 @@ function ColumnContainer(props: Props) {
             <div>
                 Footer
             </div>
-        </div>
+        </div >
     )
 }
 
