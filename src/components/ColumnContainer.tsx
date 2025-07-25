@@ -7,10 +7,11 @@ import { useState } from "react";
 interface Props {
     column: Column;
     deleteColumn: (id: Id) => void;
+    updateColumn: (id: Id, title: String) => void;
 }
 
 function ColumnContainer(props: Props) {
-    const { column, deleteColumn } = props;
+    const { column, deleteColumn, updateColumn } = props;
     const [editMode, setEditMode] = useState(false);
 
     const { setNodeRef, attributes, listeners,
