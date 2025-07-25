@@ -52,10 +52,26 @@ function ColumnContainer(props: Props) {
                         0
                     </div>
                     {!editMode && column.title}
-                    {editMode && <input autoFocus
+                    {editMode && <input
+                        className="bg-black focus:border-rose-500 
+                            border rounded outline-none px-2"
+                        value={column.title}
+                        onChange={
+                            (e) => {
+                                updateColumn(column.id, e.target.value);
+                            }
+                        }
+                        autoFocus
                         onBlur={
                             () => { setEditMode(false) }
-                        } />}
+                        }
+                        onKeyDown={
+                            (e) => {
+                                if (e.key !== "Enter") return;
+                                setEditMode(false);
+                            }
+                        }
+                    />}
                 </div>
                 <button onClick={() => deleteColumn(column.id)}
                     className="stroke-gray-500 
