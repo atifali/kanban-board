@@ -7,7 +7,7 @@ import { useState } from "react";
 interface Props {
     column: Column;
     deleteColumn: (id: Id) => void;
-    updateColumn: (id: Id, title: String) => void;
+    updateColumn: (id: Id, title: string) => void;
 }
 
 function ColumnContainer(props: Props) {
