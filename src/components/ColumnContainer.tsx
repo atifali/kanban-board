@@ -3,6 +3,7 @@ import TrashIcon from "../icons/TrashIcon";
 import type { Column, Id } from "../types";
 import { CSS } from "@dnd-kit/utilities"
 import { useState } from "react";
+import PlusIcon from "../icons/PlusIcon";
 
 interface Props {
     column: Column;
@@ -85,9 +86,12 @@ function ColumnContainer(props: Props) {
             <div className="flex flex-grow">
                 Content
             </div>
-            <div>
-                Footer
-            </div>
+            <button className="flex gap-2 items-center border-gray-800
+                border rounded-md p-4 border-x-gray-800 
+                hover:bg-gray-950 hover:text-rose-500 active:bg-black">
+                <PlusIcon />
+                Add Task
+            </button>
         </div >
     )
 }
