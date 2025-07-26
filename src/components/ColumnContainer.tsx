@@ -9,10 +9,11 @@ interface Props {
     column: Column;
     deleteColumn: (id: Id) => void;
     updateColumn: (id: Id, title: string) => void;
+    createTask: (columnId: Id) => void;
 }
 
 function ColumnContainer(props: Props) {
-    const { column, deleteColumn, updateColumn } = props;
+    const { column, deleteColumn, updateColumn, createTask } = props;
     const [editMode, setEditMode] = useState(false);
 
     const { setNodeRef, attributes, listeners,
@@ -88,7 +89,10 @@ function ColumnContainer(props: Props) {
             </div>
             <button className="flex gap-2 items-center border-gray-800
                 border rounded-md p-4 border-x-gray-800 
-                hover:bg-gray-950 hover:text-rose-500 active:bg-black">
+                hover:bg-gray-950 hover:text-rose-500 
+                active:bg-black"
+                onClick={() => createTask(column.id)}
+            >
                 <PlusIcon />
                 Add Task
             </button>

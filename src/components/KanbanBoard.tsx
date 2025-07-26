@@ -46,6 +46,15 @@ function KanbanBoard() {
         setColumns(newColumns);
     }
 
+    function createTask(columnId: Id) {
+        const newTask: Task = {
+            id: Date.now(),
+            columnId: columnId,
+            content: `Task ${tasks.length + 1}`
+        }
+        setTasks([...tasks, newTask]);
+    }
+
     function onDragStart(event: DragStartEvent) {
         if (event.active.data.current?.type === "Column") {
             setActiveColumn(event.active.data.current.column);
@@ -83,7 +92,8 @@ function KanbanBoard() {
                                 <ColumnContainer key={column.id}
                                     column={column}
                                     deleteColumn={deleteColumn}
-                                    updateColumn={updateColumn} />
+                                    updateColumn={updateColumn}
+                                    createTask={createTask} />
                             ))}
                         </SortableContext>
                     </div>
@@ -102,6 +112,7 @@ function KanbanBoard() {
                             column={activeColumn}
                             deleteColumn={deleteColumn}
                             updateColumn={updateColumn}
+                            createTask={createTask}
                         />
                     )}
                 </DragOverlay>, document.body)}
