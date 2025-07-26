@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react"
 import PlusIcon from "../icons/PlusIcon"
-import type { Column, Id } from "../types";
+import type { Column, Id, Task } from "../types";
 import ColumnContainer from "./ColumnContainer";
 import { DndContext, DragOverlay, PointerSensor, useSensors, useSensor, type DragEndEvent, type DragStartEvent } from "@dnd-kit/core";
 import { arrayMove, SortableContext } from "@dnd-kit/sortable";
@@ -12,6 +12,7 @@ function KanbanBoard() {
         () => columns.map(column => column.id),
         [columns]);
     const [activeColumn, setActiveColumn] = useState<Column | null>(null);
+    const [tasks, setTasks] = useState<Task[]>([]);
     const sensors = useSensors(
         useSensor(PointerSensor, {
             activationConstraint: {
