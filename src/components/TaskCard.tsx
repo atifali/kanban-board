@@ -7,7 +7,11 @@ interface Props {
 function TaskCard(props: Props) {
     const { task } = props;
     return (
-        <div>{task.content}</div>
+        <div className="bg-gray-950 p-2.5 h-[100px] min-h-[100px] 
+            items-center flex text-left rounded-xl hover:ring-2 
+            hover:ring-inset hover:ring-rose-500">
+            {task.content}
+        </div>
     )
 }
 
