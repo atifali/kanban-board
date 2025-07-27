@@ -46,7 +46,8 @@ function TaskCard(props: Props) {
     return (
         <div className="bg-gray-950 p-2.5 h-[100px] min-h-[100px] 
             items-center flex text-left rounded-xl hover:ring-2 
-            hover:ring-inset hover:ring-rose-500 cursor-grab relative"
+            hover:ring-inset hover:ring-rose-500 cursor-grab relative
+            task"
             onClick={toggleEditMode}
             onMouseEnter={() => {
                 setMouseIsOver(true);
@@ -55,7 +56,10 @@ function TaskCard(props: Props) {
                 setMouseIsOver(false);
             }}
         >
-            {task.content}
+            <p className="my-auto h-[90%] w-full overflow-y-auto
+                overflow-x-auto whitespace-pre-wrap">
+                {task.content}
+            </p>
             {mouseIsOver && <button className="stroke-white absolute 
                 right-4 top-1/2 -translate-y-1/2 bg-gray-800 p-2 
                 rounded opacity-60 hover:opacity-100"
