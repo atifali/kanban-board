@@ -32,7 +32,7 @@ function TaskCard(props: Props) {
                     placeholder="Add your task here..."
                     onBlur={toggleEditMode}
                     onKeyDown={(e) => {
-                        if (e.key === "Enter") toggleEditMode();
+                        if (e.key === "Enter" && e.shiftKey) toggleEditMode();
                     }}
                     onChange={(e) => {
                         updateTask(task.id, e.target.value);
