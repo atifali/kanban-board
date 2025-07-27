@@ -12,12 +12,13 @@ interface Props {
     updateColumn: (id: Id, title: string) => void;
     createTask: (columnId: Id) => void;
     deleteTask: (id: Id) => void;
+    updateTask: (id: Id, content: string) => void;
     tasks: Task[];
 }
 
 function ColumnContainer(props: Props) {
     const { column, deleteColumn, updateColumn, createTask,
-        deleteTask, tasks } = props;
+        deleteTask, updateTask, tasks } = props;
     const [editMode, setEditMode] = useState(false);
 
     const { setNodeRef, attributes, listeners,
@@ -94,6 +95,7 @@ function ColumnContainer(props: Props) {
                     <TaskCard key={task.id}
                         task={task}
                         deleteTask={deleteTask}
+                        updateTask={updateTask}
                     />
                 ))}
             </div>

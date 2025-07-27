@@ -5,10 +5,11 @@ import type { Id, Task } from "../types"
 interface Props {
     task: Task;
     deleteTask: (id: Id) => void;
+    updateTask: (id: Id, content: string) => void;
 }
 
 function TaskCard(props: Props) {
-    const { task, deleteTask } = props;
+    const { task, deleteTask, updateTask } = props;
     const [mouseIsOver, setMouseIsOver] = useState(false);
     const [editMode, setEditMode] = useState(false);
 
@@ -19,7 +20,26 @@ function TaskCard(props: Props) {
 
     if (editMode) {
         return (
-            <>Edit Mode</>
+            <div className="bg-gray-950 p-2.5 h-[100px] min-h-[100px] 
+            items-center flex text-left rounded-xl hover:ring-2 
+            hover:ring-inset hover:ring-rose-500 cursor-grab relative"
+            >
+                <textarea className="h-[90%] w-full resize-none
+                    border-none rounded bg-transparent text-white
+                    focus:outline-none"
+                    value={task.content}
+                    autoFocus
+                    placeholder="Add your task here..."
+                    onBlur={toggleEditMode}
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter") toggleEditMode();
+                    }}
+                    onChange={(e) => {
+                        updateTask(task.id, e.target.value);
+                    }}
+                >
+                </textarea>
+            </div>
         );
     }
 
