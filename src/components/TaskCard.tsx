@@ -57,7 +57,7 @@ function TaskCard(props: Props) {
             }}
         >
             <p className="my-auto h-[90%] w-full overflow-y-auto
-                overflow-x-auto whitespace-pre-wrap">
+                overflow-x-hidden whitespace-pre-wrap">
                 {task.content}
             </p>
             {mouseIsOver && <button className="stroke-white absolute 
