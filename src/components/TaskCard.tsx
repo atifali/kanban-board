@@ -1,6 +1,8 @@
 import { useState } from "react";
 import TrashIcon from "../icons/TrashIcon";
 import type { Id, Task } from "../types"
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities"
 
 interface Props {
     task: Task;
@@ -13,6 +15,21 @@ function TaskCard(props: Props) {
     const [mouseIsOver, setMouseIsOver] = useState(false);
     const [editMode, setEditMode] = useState(false);
 
+    const { setNodeRef, attributes, listeners,
+        transform, transition, isDragging } = useSortable({
+            id: task.id,
+            data: {
+                type: "Task",
+                task,
+            },
+            disabled: editMode,
+        });
+
+    const style = {
+        transition,
+        transform: CSS.Transform.toString(transform),
+    }
+
     function toggleEditMode() {
         setEditMode((prev) => !prev);
         setMouseIsOver(false);
@@ -20,9 +37,12 @@ function TaskCard(props: Props) {
 
     if (editMode) {
         return (
-            <div className="bg-gray-950 p-2.5 h-[100px] min-h-[100px] 
-            items-center flex text-left rounded-xl hover:ring-2 
-            hover:ring-inset hover:ring-rose-500 cursor-grab relative"
+            <div
+                ref={setNodeRef} style={style} {...attributes}
+                {...listeners} className="bg-gray-950 p-2.5 h-[100px] 
+                    min-h-[100px] items-center flex text-left rounded-xl 
+                    hover:ring-2 hover:ring-inset hover:ring-rose-500 
+                    cursor-grab relative"
             >
                 <textarea className="h-[90%] w-full resize-none
                     border-none rounded bg-transparent text-white
@@ -44,10 +64,11 @@ function TaskCard(props: Props) {
     }
 
     return (
-        <div className="bg-gray-950 p-2.5 h-[100px] min-h-[100px] 
-            items-center flex text-left rounded-xl hover:ring-2 
-            hover:ring-inset hover:ring-rose-500 cursor-grab relative
-            task"
+        <div ref={setNodeRef} style={style} {...attributes}
+            {...listeners} className="bg-gray-950 p-2.5 h-[100px] 
+            min-h-[100px] items-center flex text-left rounded-xl 
+            hover:ring-2 hover:ring-inset hover:ring-rose-500 
+            cursor-grab relative task"
             onClick={toggleEditMode}
             onMouseEnter={() => {
                 setMouseIsOver(true);
