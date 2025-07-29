@@ -35,6 +35,13 @@ function TaskCard(props: Props) {
         setMouseIsOver(false);
     }
 
+    if (isDragging) {
+        return (
+            <div ref={setNodeRef} style={style}>
+                Dragging task
+            </div >
+        );
+    }
     if (editMode) {
         return (
             <div
