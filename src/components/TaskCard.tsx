@@ -37,7 +37,10 @@ function TaskCard(props: Props) {
 
     if (isDragging) {
         return (
-            <div ref={setNodeRef} style={style}>
+            <div ref={setNodeRef} style={style} className="bg-gray-950 
+                p-2.5 h-[100px] min-h-[100px] items-center flex text-left 
+                rounded-xl hover:ring-2 hover:ring-inset 
+                hover:ring-rose-500 cursor-grab relative">
                 Dragging task
             </div >
         );
