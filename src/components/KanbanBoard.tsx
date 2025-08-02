@@ -36,6 +36,8 @@ function KanbanBoard() {
             (column) => column.id !== id
         );
         setColumns(filteredColumns);
+        const newTasks = tasks.filter((t) => t.columnId !== id);
+        setTasks(newTasks);
     }
 
     function updateColumn(id: Id, title: string) {
