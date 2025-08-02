@@ -102,9 +102,9 @@ function KanbanBoard() {
     function onDragOver(event: DragOverEvent) {
         const { active, over } = event;
         if (!over) return;
-        const activeColumnId = active.id;
-        const overColumnId = over.id;
-        if (activeColumnId === overColumnId) return;
+        const activeId = active.id;
+        const overId = over.id;
+        if (activeId === overId) return;
 
         const isActiveATask = active.data.current?.type === "Task";
         const isOverATask = active.data.current?.type === "Task";
@@ -112,12 +112,12 @@ function KanbanBoard() {
         if (isActiveATask && isOverATask) {
             setTasks(tasks => {
                 const activeIndex = tasks.findIndex(
-                    t => t.id === activeColumnId
+                    t => t.id === activeId
                 );
                 const overIndex = tasks.findIndex(
-                    t => t.id === overColumnId
+                    t => t.id === overId
                 );
-                tasks[activeIndex].columnId = tasks[overIndex].columnId;
+                //tasks[activeIndex].columnId = tasks[overIndex].columnId;
                 return arrayMove(tasks, activeIndex, overIndex);
             });
         }
@@ -126,8 +126,8 @@ function KanbanBoard() {
         if (isActiveATask && isOverAColumn) {
             setTasks(tasks => {
                 const activeIndex = tasks.findIndex(
-                    t => t.id === activeColumnId);
-                tasks[activeIndex].columnId = overColumnId;
+                    t => t.id === activeId);
+                tasks[activeIndex].columnId = overId;
                 return arrayMove(tasks, activeIndex, activeIndex);
             });
         }
