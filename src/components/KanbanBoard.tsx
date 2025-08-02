@@ -115,6 +115,7 @@ function KanbanBoard() {
                 const overIndex = tasks.findIndex(
                     t => t.id === overColumnId
                 );
+                tasks[activeIndex].columnId = tasks[overIndex].columnId;
                 return arrayMove(tasks, activeIndex, overIndex);
             });
         }
