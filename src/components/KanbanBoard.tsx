@@ -108,15 +108,27 @@ function KanbanBoard() {
 
         const isActiveATask = active.data.current?.type === "Task";
         const isOverATask = active.data.current?.type === "Task";
+        if (!isActiveATask) return;
         if (isActiveATask && isOverATask) {
             setTasks(tasks => {
                 const activeIndex = tasks.findIndex(
-                    t => t.id === activeColumnId);
+                    t => t.id === activeColumnId
+                );
                 const overIndex = tasks.findIndex(
                     t => t.id === overColumnId
                 );
                 tasks[activeIndex].columnId = tasks[overIndex].columnId;
                 return arrayMove(tasks, activeIndex, overIndex);
+            });
+        }
+
+        const isOverAColumn = over.data.current?.type === "Column";
+        if (isActiveATask && isOverAColumn) {
+            setTasks(tasks => {
+                const activeIndex = tasks.findIndex(
+                    t => t.id === activeColumnId);
+                tasks[activeIndex].columnId = overColumnId;
+                return arrayMove(tasks, activeIndex, activeIndex);
             });
         }
     }
